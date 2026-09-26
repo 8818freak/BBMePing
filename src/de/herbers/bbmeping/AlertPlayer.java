@@ -80,7 +80,6 @@ final class AlertPlayer {
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .build());
             mp.setDataSource(ctx, sound);
-            mp.setVolume(volume, volume);
             mp.setOnCompletionListener(m -> { m.release(); onDone.run(); });
             mp.setOnErrorListener((m, w, e) -> {
                 try { m.release(); } catch (Throwable ignored) {}
@@ -88,6 +87,10 @@ final class AlertPlayer {
                 return true;
             });
             mp.prepare();
+            // setVolume() VOR prepare() wird auf manchen Geraeten stillschweigend
+            // ignoriert (beobachtet: Lautstaerke-Einstellung ohne Wirkung) -
+            // deshalb erst nach dem Vorbereiten setzen.
+            mp.setVolume(volume, volume);
             mp.start();
         } catch (Throwable t) {
             Log.w(TAG, "Ton konnte nicht abgespielt werden: " + sound, t);

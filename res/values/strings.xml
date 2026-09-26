@@ -58,4 +58,15 @@
     <string name="pattern_volume_flat">Lautstärke %1$d%%</string>
     <string name="pattern_active_at">bei %1$s</string>
     <string name="pattern_never_active">nie aktiv</string>
+
+    <string name="button_about">Über BBMe Ping</string>
+    <string name="button_back">← Zurück</string>
+    <string name="version_line">BBMe Ping %1$s</string>
+    <string name="about_description">Löst bei Prioritäts-Nachrichten von BBM Enterprise ein frei einstellbares Ton-/Wiederholungsmuster aus, auch wenn das Telefon lautlos ist. Kein BBM-Code, keine mitgelieferten BBM-Töne – nur offene Android-Schnittstellen.</string>
+    <string name="about_license_title">Lizenz</string>
+    <string name="about_license_text">GNU General Public License v3 (oder später). Copyright (c) 2026 Mathias Herbers.\n\nEnthält keine BlackBerry/BBM-Grafiken, -Töne oder -Code und keine Bibliotheken von Drittanbietern – ausschließlich offene Android-Systemschnittstellen. Vollständiger Lizenztext: LICENSE im Quellcode-Repository.</string>
+    <string name="about_changelog_title">Änderungsprotokoll</string>
+    <string name="about_changelog_show">Änderungsprotokoll anzeigen</string>
+    <string name="about_changelog_hide">Änderungsprotokoll ausblenden</string>
+    <string name="about_changelog_unavailable">Änderungsprotokoll konnte nicht geladen werden.</string>
 </resources>

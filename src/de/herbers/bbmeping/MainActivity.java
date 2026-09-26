@@ -45,6 +45,8 @@ public class MainActivity extends Activity {
     private AlertPattern editBuffer;
     /** Nur fuer einen neu hinzugefuegten Kontakt, bis er gespeichert wird. */
     private String pendingNewContactName;
+    private boolean showingAbout;
+    private boolean changelogOpen;
 
     @Override
     protected void onCreate(Bundle b) {
@@ -186,7 +188,9 @@ public class MainActivity extends Activity {
 
         if (!isListenerEnabled()) root.addView(notifPermissionHint(d));
 
-        if (editBuffer != null) {
+        if (showingAbout) {
+            buildAboutSection(d);
+        } else if (editBuffer != null) {
             buildPatternEditor(d);
         } else {
             buildOverview(d);
@@ -291,6 +295,120 @@ public class MainActivity extends Activity {
             permHint.setTextSize(12);
             permHint.setPadding(0, 8 * d, 0, 0);
             root.addView(permHint);
+        }
+
+        Button about = new Button(this);
+        about.setText(R.string.button_about);
+        about.setOnClickListener(v -> { showingAbout = true; rebuild(); });
+        LinearLayout.LayoutParams aboutLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        aboutLp.topMargin = 24 * d;
+        about.setLayoutParams(aboutLp);
+        root.addView(about);
+    }
+
+    // ---------- Über BBMe Ping (Version, Lizenz, Änderungsprotokoll) ----------
+
+    private void buildAboutSection(int d) {
+        Button back = new Button(this);
+        back.setText(R.string.button_back);
+        back.setOnClickListener(v -> { showingAbout = false; rebuild(); });
+        LinearLayout.LayoutParams backLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        backLp.bottomMargin = 12 * d;
+        back.setLayoutParams(backLp);
+        root.addView(back);
+
+        String vn;
+        try { vn = getPackageManager().getPackageInfo(getPackageName(), 0).versionName; }
+        catch (Exception e) { vn = "?"; }
+        TextView ver = new TextView(this);
+        ver.setText(getString(R.string.version_line, vn));
+        ver.setTextColor(Color.parseColor("#2E9BE6"));
+        ver.setTextSize(16);
+        ver.setPadding(0, 0, 0, 10 * d);
+        root.addView(ver);
+
+        TextView desc = new TextView(this);
+        desc.setText(R.string.about_description);
+        desc.setTextColor(Color.parseColor("#CCCCCC"));
+        desc.setTextSize(13);
+        desc.setPadding(0, 0, 0, 4 * d);
+        root.addView(desc);
+
+        section(root, getString(R.string.about_license_title), d);
+        TextView lic = new TextView(this);
+        lic.setText(R.string.about_license_text);
+        lic.setTextColor(Color.parseColor("#9E9E9E"));
+        lic.setTextSize(12);
+        root.addView(lic);
+
+        section(root, getString(R.string.about_changelog_title), d);
+        Button toggle = new Button(this);
+        toggle.setText(changelogOpen ? R.string.about_changelog_hide : R.string.about_changelog_show);
+        toggle.setOnClickListener(v -> { changelogOpen = !changelogOpen; rebuild(); });
+        root.addView(toggle);
+
+        if (changelogOpen) {
+            String md = readAsset("CHANGELOG.md");
+            LinearLayout box = new LinearLayout(this);
+            box.setOrientation(LinearLayout.VERTICAL);
+            box.setPadding(0, 8 * d, 0, 0);
+            if (md == null) {
+                TextView err = new TextView(this);
+                err.setText(R.string.about_changelog_unavailable);
+                err.setTextColor(Color.parseColor("#FFB0B0"));
+                err.setTextSize(12);
+                box.addView(err);
+            } else {
+                renderMarkdown(box, md, d);
+            }
+            root.addView(box);
+        }
+    }
+
+    private String readAsset(String name) {
+        try (java.io.InputStream in = getAssets().open(name)) {
+            java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+            byte[] buf = new byte[4096];
+            int n;
+            while ((n = in.read(buf)) != -1) out.write(buf, 0, n);
+            return out.toString("UTF-8");
+        } catch (Exception e) { return null; }
+    }
+
+    /** Sehr schlichter Markdown-Renderer - nur genug, um das eigene, immer
+     *  gleich aufgebaute CHANGELOG.md lesbar darzustellen (Überschriften,
+     *  Aufzählungspunkte, Absätze). Kein allgemeiner Markdown-Parser. */
+    private void renderMarkdown(LinearLayout root, String md, int d) {
+        for (String line : md.split("\n")) {
+            String t = line.trim();
+            if (t.isEmpty()) continue;
+            TextView tv = new TextView(this);
+            if (t.startsWith("## ")) {
+                tv.setText(t.substring(3));
+                tv.setTextColor(Color.parseColor("#2E9BE6"));
+                tv.setTextSize(14);
+                tv.setTypeface(null, android.graphics.Typeface.BOLD);
+                tv.setPadding(0, 14 * d, 0, 4 * d);
+            } else if (t.startsWith("# ")) {
+                tv.setText(t.substring(2));
+                tv.setTextColor(Color.WHITE);
+                tv.setTextSize(16);
+                tv.setTypeface(null, android.graphics.Typeface.BOLD);
+                tv.setPadding(0, 4 * d, 0, 6 * d);
+            } else if (t.startsWith("- ")) {
+                tv.setText("•  " + t.substring(2));
+                tv.setTextColor(Color.parseColor("#CCCCCC"));
+                tv.setTextSize(12);
+                tv.setPadding(10 * d, 2 * d, 0, 2 * d);
+            } else {
+                tv.setText(t);
+                tv.setTextColor(Color.parseColor("#9E9E9E"));
+                tv.setTextSize(12);
+                tv.setPadding(0, 2 * d, 0, 2 * d);
+            }
+            root.addView(tv);
         }
     }
 

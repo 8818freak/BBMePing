@@ -58,4 +58,15 @@
     <string name="pattern_volume_flat">volume %1$d%%</string>
     <string name="pattern_active_at">active in %1$s</string>
     <string name="pattern_never_active">never active</string>
+
+    <string name="button_about">About BBMe Ping</string>
+    <string name="button_back">← Back</string>
+    <string name="version_line">BBMe Ping %1$s</string>
+    <string name="about_description">Triggers a fully configurable tone/repeat pattern for priority messages from BBM Enterprise, even when the phone is silenced. No BBM code, no bundled BBM sounds – only open Android interfaces.</string>
+    <string name="about_license_title">License</string>
+    <string name="about_license_text">GNU General Public License v3 (or later). Copyright (c) 2026 Mathias Herbers.\n\nContains no BlackBerry/BBM graphics, sounds or code, and no third-party libraries – only open Android system interfaces. Full license text: LICENSE in the source repository.</string>
+    <string name="about_changelog_title">Changelog</string>
+    <string name="about_changelog_show">Show changelog</string>
+    <string name="about_changelog_hide">Hide changelog</string>
+    <string name="about_changelog_unavailable">Changelog could not be loaded.</string>
 </resources>
