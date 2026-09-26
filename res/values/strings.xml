@@ -17,7 +17,7 @@
     <string name="button_edit">Bearbeiten</string>
 
     <string name="label_tones_per_burst">Töne je Tonfolge</string>
-    <string name="label_burst_count">Wiederholungen (Tonfolgen)</string>
+    <string name="label_burst_count">Wiederholungen</string>
     <string name="label_tone_gap">Pause zwischen Tönen (ms)</string>
     <string name="label_burst_gap">Pause zwischen Tonfolgen (ms)</string>
     <string name="label_volume_start">Lautstärke Start (%)</string>

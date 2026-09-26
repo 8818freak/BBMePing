@@ -2,6 +2,12 @@
 
 Alle nennenswerten Änderungen, neueste zuerst.
 
+## 0.5
+- Fix: "Wiederholungen" ließ sich nicht auf 0 stellen, weil das Feld
+  tatsächlich die Gesamtzahl der Tonfolgen zeigte/einstellte (Minimum 1).
+  Zeigt/setzt jetzt wirklich nur die zusätzlichen Wiederholungen (0 = nur
+  einmal abspielen).
+
 ## 0.4
 - Fix: "Ton aus BBMe wählen…" fand die installierten BBM-Töne nur
   gelegentlich, je nach zufälliger impliziter Paket-Sichtbarkeit (Android

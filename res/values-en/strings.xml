@@ -17,7 +17,7 @@
     <string name="button_edit">Edit</string>
 
     <string name="label_tones_per_burst">Tones per burst</string>
-    <string name="label_burst_count">Repeats (bursts)</string>
+    <string name="label_burst_count">Repeats</string>
     <string name="label_tone_gap">Gap between tones (ms)</string>
     <string name="label_burst_gap">Gap between bursts (ms)</string>
     <string name="label_volume_start">Starting volume (%)</string>

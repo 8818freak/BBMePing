@@ -451,7 +451,7 @@ public class MainActivity extends Activity {
                 : getString(R.string.pattern_active_at, TextUtils.join("/", modes));
         return TextUtils.join(", ", new String[]{
                 getString(R.string.pattern_tones_burst, p.tonesPerBurst),
-                getString(R.string.pattern_repeated, p.burstCount),
+                getString(R.string.pattern_repeated, p.burstCount - 1),
                 getString(R.string.pattern_pauses, p.toneGapMs, p.burstGapMs),
                 volume
         }) + " · " + active;
@@ -467,8 +467,12 @@ public class MainActivity extends Activity {
 
         root.addView(numberRow(getString(R.string.label_tones_per_burst), editBuffer.tonesPerBurst, 1, 20,
                 v -> editBuffer.tonesPerBurst = v, d));
-        root.addView(numberRow(getString(R.string.label_burst_count), editBuffer.burstCount, 1, 20,
-                v -> editBuffer.burstCount = v, d));
+        // Anzeige/Eingabe als ZUSAETZLICHE Wiederholungen (0 = einmal
+        // abspielen), intern bleibt burstCount aber die Gesamtzahl der
+        // Tonfolgen (so wie AlertPlayer/AlertPattern es schon ueberall
+        // verwenden) - nur hier um 1 verschoben.
+        root.addView(numberRow(getString(R.string.label_burst_count), editBuffer.burstCount - 1, 0, 19,
+                v -> editBuffer.burstCount = v + 1, d));
         root.addView(numberRow(getString(R.string.label_tone_gap), editBuffer.toneGapMs, 50, 5000, 50,
                 v -> editBuffer.toneGapMs = v, d));
         root.addView(numberRow(getString(R.string.label_burst_gap), editBuffer.burstGapMs, 200, 60000, 200,
