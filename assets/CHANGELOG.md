@@ -2,6 +2,13 @@
 
 Alle nennenswerten Änderungen, neueste zuerst.
 
+## 0.4
+- Fix: "Ton aus BBMe wählen…" fand die installierten BBM-Töne nur
+  gelegentlich, je nach zufälliger impliziter Paket-Sichtbarkeit (Android
+  11+ verbirgt fremde Pakete standardmäßig). Manifest deklariert
+  com.bbm.enterprise jetzt explizit über `<queries>`, damit das
+  zuverlässig funktioniert.
+
 ## 0.3
 - Fix: die Lautstärke-Einstellungen (Start/Maximum) hatten keine hörbare
   Wirkung - MediaPlayer.setVolume() wurde vor prepare() aufgerufen und auf
