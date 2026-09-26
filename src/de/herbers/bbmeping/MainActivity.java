@@ -92,6 +92,63 @@ public class MainActivity extends Activity {
         }
     }
 
+    /** Zeigt eine Auswahl der Toene, die die installierte BBM-Enterprise-App
+     *  selbst mitbringt (siehe InstalledSounds) - direkt gegen deren eigene
+     *  Ressourcen aufgeloest, ohne je eine Datei zu kopieren. */
+    private void showBbmSoundPicker() {
+        List<InstalledSounds.NamedSound> sounds = InstalledSounds.resolve(getPackageManager());
+        if (sounds.isEmpty()) {
+            new android.app.AlertDialog.Builder(this)
+                    .setMessage(R.string.bbm_sound_none_found)
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
+            return;
+        }
+        String[] labels = new String[sounds.size()];
+        for (int i = 0; i < sounds.size(); i++) {
+            labels[i] = InstalledSounds.friendlyName(this, sounds.get(i).rawName);
+        }
+        new android.app.AlertDialog.Builder(this)
+                .setTitle(R.string.bbm_sound_picker_title)
+                .setItems(labels, (dlg, which) -> {
+                    editBuffer.soundUri = sounds.get(which).uri.toString();
+                    rebuild();
+                })
+                .show();
+    }
+
+    private String soundDescription() {
+        String uri = editBuffer.soundUri;
+        if (uri == null) return getString(R.string.sound_auto_desc);
+        if (InstalledSounds.isBbmOwnUri(uri)) {
+            String rawName = uri.substring(uri.lastIndexOf('/') + 1);
+            // Der Ressourcen-Name steckt nicht in der Uri (nur die numerische
+            // Id) - fuer die Anzeige stattdessen einfach den zuletzt gewaehlten
+            // Roh-Namen aus InstalledSounds erneut auflösen und vergleichen.
+            for (InstalledSounds.NamedSound s : InstalledSounds.resolve(getPackageManager())) {
+                if (s.uri.toString().equals(uri)) {
+                    return getString(R.string.sound_bbm_prefix, InstalledSounds.friendlyName(this, s.rawName));
+                }
+            }
+            return getString(R.string.sound_bbm_prefix, rawName);
+        }
+        return getString(R.string.sound_custom_prefix, uri);
+    }
+
+    /** Ton fuer den "Testen"-Knopf: der eingestellte eigene/BBM-eigene Ton,
+     *  sonst der zuletzt bei einer echten Prioritaets-Nachricht beobachtete
+     *  Ton (siehe NotificationCapture/Rules), sonst - nur als allerletzter
+     *  Behelf, wenn beides fehlt - ein System-Platzhalter. */
+    private Uri testSoundUri() {
+        Uri sound = editBuffer.soundUriParsed();
+        if (sound != null) return sound;
+        String last = Rules.lastKnownAutoSound(this);
+        if (last != null) {
+            try { return Uri.parse(last); } catch (Throwable ignored) {}
+        }
+        return android.media.RingtoneManager.getDefaultUri(android.media.RingtoneManager.TYPE_NOTIFICATION);
+    }
+
     private void resolvePickedContact(Uri contactUri) {
         if (contactUri == null) return;
         try (android.database.Cursor c = getContentResolver().query(contactUri,
@@ -326,15 +383,19 @@ public class MainActivity extends Activity {
 
         section(root, getString(R.string.section_sound), d);
         TextView soundInfo = new TextView(this);
-        soundInfo.setText(editBuffer.soundUri == null
-                ? getString(R.string.sound_auto_desc)
-                : getString(R.string.sound_custom_prefix, editBuffer.soundUri));
+        soundInfo.setText(soundDescription());
         soundInfo.setTextColor(Color.parseColor("#8899AA"));
         soundInfo.setTextSize(12);
         soundInfo.setPadding(0, 0, 0, 8 * d);
         root.addView(soundInfo);
+        // Zwei Zeilen statt einer (drei Knoepfe nebeneinander passen auf
+        // einem Telefon nicht mehr nebeneinander auf den Bildschirm).
         LinearLayout soundRow = new LinearLayout(this);
         soundRow.setOrientation(LinearLayout.HORIZONTAL);
+        Button pickBbmSound = new Button(this);
+        pickBbmSound.setText(R.string.button_pick_bbm_sound);
+        pickBbmSound.setOnClickListener(v -> showBbmSoundPicker());
+        soundRow.addView(pickBbmSound, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         Button pickSound = new Button(this);
         pickSound.setText(R.string.button_pick_sound);
         pickSound.setOnClickListener(v -> {
@@ -344,23 +405,19 @@ public class MainActivity extends Activity {
             i.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivityForResult(i, REQ_PICK_SOUND);
         });
-        soundRow.addView(pickSound);
+        soundRow.addView(pickSound, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        root.addView(soundRow);
         if (editBuffer.soundUri != null) {
             Button reset = new Button(this);
             reset.setText(R.string.button_reset_sound);
             reset.setOnClickListener(v -> { editBuffer.soundUri = null; rebuild(); });
-            soundRow.addView(reset);
+            root.addView(reset);
         }
-        root.addView(soundRow);
 
         Button test = new Button(this);
         test.setText(R.string.button_test);
         test.setOnClickListener(v -> {
-            Uri sound = editBuffer.soundUriParsed();
-            if (sound == null) {
-                // Fuer den Test ohne echte BBM-Benachrichtigung: Systemstandard.
-                sound = android.media.RingtoneManager.getDefaultUri(android.media.RingtoneManager.TYPE_NOTIFICATION);
-            }
+            Uri sound = testSoundUri();
             AlertPlayer.play(this, "test", sound, editBuffer);
         });
         root.addView(test);

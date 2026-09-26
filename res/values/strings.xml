@@ -16,10 +16,10 @@
     <string name="contacts_perm_hint">Ohne Kontakte-Zugriff gilt immer nur das Standard-Muster.</string>
     <string name="button_edit">Bearbeiten</string>
 
-    <string name="label_tones_per_burst">Töne je Stoß</string>
-    <string name="label_burst_count">Wiederholungen (Stöße)</string>
+    <string name="label_tones_per_burst">Töne je Tonfolge</string>
+    <string name="label_burst_count">Wiederholungen (Tonfolgen)</string>
     <string name="label_tone_gap">Pause zwischen Tönen (ms)</string>
-    <string name="label_burst_gap">Pause zwischen Stößen (ms)</string>
+    <string name="label_burst_gap">Pause zwischen Tonfolgen (ms)</string>
     <string name="label_volume_start">Lautstärke Start (%)</string>
     <string name="checkbox_ramp">  Bis zu einem Maximum ansteigen lassen</string>
     <string name="label_volume_max">Lautstärke Maximum (%)</string>
@@ -32,8 +32,20 @@
     <string name="section_sound">Ton</string>
     <string name="sound_auto_desc">Automatisch: der Ton, den BBM Enterprise selbst für Prioritäts-Nachrichten verwendet.</string>
     <string name="sound_custom_prefix">Eigene Datei: %1$s</string>
+    <string name="sound_bbm_prefix">BBM-eigener Ton: %1$s</string>
     <string name="button_pick_sound">Eigene Datei wählen…</string>
+    <string name="button_pick_bbm_sound">Ton aus BBMe wählen…</string>
     <string name="button_reset_sound">Zurücksetzen</string>
+    <string name="bbm_sound_picker_title">Welcher BBM-eigene Ton?</string>
+    <string name="bbm_sound_none_found">In der installierten BBM-Enterprise-App wurde keiner der bekannten Töne gefunden.</string>
+    <string name="bbmsound_high_priority">Priorität (PING)</string>
+    <string name="bbmsound_notification">Standard-Benachrichtigung</string>
+    <string name="bbmsound_contentment">Zufriedenheit</string>
+    <string name="bbmsound_incoming_call">Eingehender Anruf</string>
+    <string name="bbmsound_outgoing_call">Ausgehender Anruf</string>
+    <string name="bbmsound_end_call">Anrufende</string>
+    <string name="bbmsound_voice_start">Sprachaufnahme Start</string>
+    <string name="bbmsound_voice_stop">Sprachaufnahme Ende</string>
 
     <string name="button_test">Testen</string>
     <string name="button_save">Speichern</string>

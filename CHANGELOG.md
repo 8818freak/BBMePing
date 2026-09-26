@@ -2,9 +2,23 @@
 
 Alle nennenswerten Änderungen, neueste zuerst.
 
+## 0.2
+- Neu: Ton direkt aus der installierten BBM-Enterprise-App auswählbar
+  ("Ton aus BBMe wählen…") - gegen deren eigene Ressourcen aufgeloest
+  (android.resource://-URI), ohne je eine Datei zu kopieren.
+- Fix: der "Testen"-Knopf spielte bisher, wenn kein eigener Ton gewaehlt war,
+  einen unbeteiligten System-Standardton ab statt eines echten BBM-Tons;
+  er nutzt jetzt den zuletzt bei einer echten Prioritaets-Nachricht
+  tatsaechlich ermittelten Ton, falls vorhanden.
+- Fix: Pause zwischen einzelnen Toenen wartete bisher auf einen festen Timer
+  statt auf das tatsaechliche Ende des vorherigen Tons - konnte bei laengeren
+  Toenen zu Ueberlappung fuehren.
+- Begriff "Stoß"/"Stöße" in der deutschen Oberflaeche durch "Tonfolge"/
+  "Tonfolgen" ersetzt.
+
 ## 0.1
 - Erste Version: Prioritäts-Benachrichtigungen von BBM Enterprise erkennen,
-  frei einstellbares Ton-/Wiederholungsmuster (Töne je Stoß, Pausen,
+  frei einstellbares Ton-/Wiederholungsmuster (Töne je Tonfolge, Pausen,
   Wiederholungen, Lautstärke mit optionalem Anstieg bis zu einem Maximum),
   je Telefon-Modus (Normal/Vibration/Lautlos) einzeln aktivierbar,
   personenbezogene Muster über Adressbuch-Abgleich, automatische

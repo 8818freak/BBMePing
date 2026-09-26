@@ -32,8 +32,20 @@
     <string name="section_sound">Sound</string>
     <string name="sound_auto_desc">Automatic: the sound BBM Enterprise itself uses for priority messages.</string>
     <string name="sound_custom_prefix">Custom file: %1$s</string>
+    <string name="sound_bbm_prefix">BBM\'s own sound: %1$s</string>
     <string name="button_pick_sound">Choose custom file…</string>
+    <string name="button_pick_bbm_sound">Choose a sound from BBMe…</string>
     <string name="button_reset_sound">Reset</string>
+    <string name="bbm_sound_picker_title">Which of BBM\'s own sounds?</string>
+    <string name="bbm_sound_none_found">None of the known sounds were found in the installed BBM Enterprise app.</string>
+    <string name="bbmsound_high_priority">Priority (PING)</string>
+    <string name="bbmsound_notification">Default notification</string>
+    <string name="bbmsound_contentment">Contentment</string>
+    <string name="bbmsound_incoming_call">Incoming call</string>
+    <string name="bbmsound_outgoing_call">Outgoing call</string>
+    <string name="bbmsound_end_call">Call ended</string>
+    <string name="bbmsound_voice_start">Voice recording start</string>
+    <string name="bbmsound_voice_stop">Voice recording end</string>
 
     <string name="button_test">Test</string>
     <string name="button_save">Save</string>

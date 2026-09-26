@@ -51,6 +51,12 @@ public class NotificationCapture extends NotificationListenerService {
         Uri sound = SoundLocator.resolve(this, BBM_PACKAGE, n.getChannelId(), pattern);
         if (sound == null) return; // kein Ton ermittelbar - lieber nichts als das Falsche abspielen
 
+        // Merken, welcher Ton bei einer echten Nachricht tatsaechlich
+        // ermittelt wurde - damit der "Testen"-Knopf in den Einstellungen
+        // (der selbst keinen Kanal einer laufenden Benachrichtigung hat)
+        // spaeter etwas Sinnvolleres abspielen kann als einen Systemton.
+        Rules.setLastKnownAutoSound(this, sound.toString());
+
         AlertPlayer.play(this, sbn.getKey(), sound, pattern);
     }
 }

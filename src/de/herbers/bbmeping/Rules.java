@@ -22,6 +22,7 @@ final class Rules {
     private static final String PREFS = "bbmeping_rules";
     private static final String K_DEFAULT = "default_pattern";
     private static final String K_CONTACT_KEYS = "contact_keys"; // -getrennt
+    private static final String K_LAST_AUTO_SOUND = "last_auto_sound";
 
     private Rules() {}
 
@@ -36,6 +37,19 @@ final class Rules {
 
     static void setDefaultPattern(Context ctx, AlertPattern pattern) {
         p(ctx).edit().putString(K_DEFAULT, pattern.encode()).apply();
+    }
+
+    /** Der Ton, den BBM Enterprise selbst fuer eine echte Prioritaets-
+     *  Nachricht meldet (siehe SoundLocator), zuletzt gemerkt von
+     *  NotificationCapture. Dient nur dem "Testen"-Knopf als realistische
+     *  Vorschau, wenn (noch) kein eigener Ton gewaehlt wurde - so muss BBM
+     *  nie selbst Toene beilegen, sondern nur einmal beobachtet werden. */
+    static String lastKnownAutoSound(Context ctx) {
+        return p(ctx).getString(K_LAST_AUTO_SOUND, null);
+    }
+
+    static void setLastKnownAutoSound(Context ctx, String uriString) {
+        p(ctx).edit().putString(K_LAST_AUTO_SOUND, uriString).apply();
     }
 
     static final class ContactRule {
