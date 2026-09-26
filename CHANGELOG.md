@@ -2,6 +2,11 @@
 
 Alle nennenswerten Änderungen, neueste zuerst.
 
+## 0.6
+- Neu: Einstellungen sichern/wiederherstellen ("Über BBMe Ping" → "Sicherung")
+  - Standard-Muster und alle personenbezogenen Muster als Textdatei
+    exportieren bzw. aus einer solchen Datei wiederherstellen.
+
 ## 0.5
 - Fix: "Wiederholungen" ließ sich nicht auf 0 stellen, weil das Feld
   tatsächlich die Gesamtzahl der Tonfolgen zeigte/einstellte (Minimum 1).

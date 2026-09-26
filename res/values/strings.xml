@@ -69,4 +69,13 @@
     <string name="about_changelog_show">Änderungsprotokoll anzeigen</string>
     <string name="about_changelog_hide">Änderungsprotokoll ausblenden</string>
     <string name="about_changelog_unavailable">Änderungsprotokoll konnte nicht geladen werden.</string>
+
+    <string name="section_backup">Sicherung</string>
+    <string name="backup_description">Standard-Muster und alle personenbezogenen Muster als Datei sichern oder aus einer solchen Datei wiederherstellen (ersetzt dabei alle aktuellen personenbezogenen Muster).</string>
+    <string name="button_backup_export">Sichern…</string>
+    <string name="button_backup_import">Wiederherstellen…</string>
+    <string name="backup_export_ok">Gesichert.</string>
+    <string name="backup_export_failed">Sicherung fehlgeschlagen.</string>
+    <string name="backup_import_ok">Wiederhergestellt.</string>
+    <string name="backup_import_failed">Datei nicht lesbar oder kein gültiges BBMe-Ping-Sicherungsformat.</string>
 </resources>

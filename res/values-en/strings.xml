@@ -69,4 +69,13 @@
     <string name="about_changelog_show">Show changelog</string>
     <string name="about_changelog_hide">Hide changelog</string>
     <string name="about_changelog_unavailable">Changelog could not be loaded.</string>
+
+    <string name="section_backup">Backup</string>
+    <string name="backup_description">Save the default pattern and all per-contact patterns to a file, or restore them from one (replaces all current per-contact patterns).</string>
+    <string name="button_backup_export">Back up…</string>
+    <string name="button_backup_import">Restore…</string>
+    <string name="backup_export_ok">Saved.</string>
+    <string name="backup_export_failed">Backup failed.</string>
+    <string name="backup_import_ok">Restored.</string>
+    <string name="backup_import_failed">File not readable, or not a valid BBMe Ping backup.</string>
 </resources>

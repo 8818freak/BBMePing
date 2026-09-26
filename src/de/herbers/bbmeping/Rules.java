@@ -52,6 +52,48 @@ final class Rules {
         p(ctx).edit().putString(K_LAST_AUTO_SOUND, uriString).apply();
     }
 
+    private static final String BACKUP_HEADER = "BBMePing-Backup 1";
+
+    /** Alle Regeln (Standard + personenbezogene) als einfacher Text - eine
+     *  Zeile je Regel, Felder mit  getrennt (kein JSON/keine
+     *  Bibliothek, wie im ganzen Projekt ueblich). Fuer "Einstellungen
+     *  sichern"; das Gegenstueck ist importText(). */
+    static String exportText(Context ctx) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(BACKUP_HEADER).append('\n');
+        sb.append("default").append(defaultPattern(ctx).encode()).append('\n');
+        for (ContactRule r : contactRules(ctx)) {
+            sb.append("contact").append(r.lookupKey).append('')
+              .append(r.displayName == null ? "" : r.displayName).append('')
+              .append(r.pattern.encode()).append('\n');
+        }
+        return sb.toString();
+    }
+
+    /** Ersetzt ALLE aktuellen Regeln durch den Inhalt einer Sicherung (kein
+     *  Zusammenfuehren mit bestehenden personenbezogenen Regeln). Liefert
+     *  false bei erkennbar falschem/beschaedigtem Format, ohne etwas zu
+     *  aendern. */
+    static boolean importText(Context ctx, String text) {
+        if (text == null || !text.startsWith(BACKUP_HEADER)) return false;
+        AlertPattern newDefault = null;
+        List<String[]> newContacts = new ArrayList<>();
+        for (String line : text.split("\n", -1)) {
+            if (line.isEmpty()) continue;
+            String[] f = line.split("", -1);
+            if (f.length >= 2 && "default".equals(f[0])) {
+                newDefault = AlertPattern.decode(f[1]);
+            } else if (f.length >= 4 && "contact".equals(f[0])) {
+                newContacts.add(new String[]{f[1], f[2], f[3]});
+            }
+        }
+        if (newDefault == null) return false;
+        for (ContactRule r : contactRules(ctx)) removeContactRule(ctx, r.lookupKey);
+        setDefaultPattern(ctx, newDefault);
+        for (String[] c : newContacts) setContactRule(ctx, c[0], c[1], AlertPattern.decode(c[2]));
+        return true;
+    }
+
     static final class ContactRule {
         final String lookupKey;
         final String displayName;

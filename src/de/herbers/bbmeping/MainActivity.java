@@ -34,6 +34,8 @@ public class MainActivity extends Activity {
     private static final int REQ_CONTACTS = 401;
     private static final int REQ_PICK_CONTACT = 402;
     private static final int REQ_PICK_SOUND = 403;
+    private static final int REQ_BACKUP_EXPORT = 404;
+    private static final int REQ_BACKUP_IMPORT = 405;
 
     private LinearLayout root;
     private ScrollView scroll;
@@ -91,7 +93,38 @@ public class MainActivity extends Activity {
                 editBuffer.soundUri = uri.toString();
                 rebuild();
             }
+        } else if (req == REQ_BACKUP_EXPORT) {
+            Uri uri = data.getData();
+            if (uri == null) return;
+            try (java.io.OutputStream out = getContentResolver().openOutputStream(uri)) {
+                out.write(Rules.exportText(this).getBytes("UTF-8"));
+                toast(R.string.backup_export_ok);
+            } catch (Exception e) {
+                toast(R.string.backup_export_failed);
+            }
+        } else if (req == REQ_BACKUP_IMPORT) {
+            Uri uri = data.getData();
+            if (uri == null) return;
+            String text = readUri(uri);
+            boolean ok = Rules.importText(this, text);
+            toast(ok ? R.string.backup_import_ok : R.string.backup_import_failed);
+            if (ok) rebuild();
         }
+    }
+
+    private void toast(int stringRes) {
+        android.widget.Toast.makeText(this, stringRes, android.widget.Toast.LENGTH_LONG).show();
+    }
+
+    private String readUri(Uri uri) {
+        try (java.io.InputStream in = getContentResolver().openInputStream(uri)) {
+            if (in == null) return null;
+            java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+            byte[] buf = new byte[4096];
+            int n;
+            while ((n = in.read(buf)) != -1) out.write(buf, 0, n);
+            return out.toString("UTF-8");
+        } catch (Exception e) { return null; }
     }
 
     /** Zeigt eine Auswahl der Toene, die die installierte BBM-Enterprise-App
@@ -342,6 +375,36 @@ public class MainActivity extends Activity {
         lic.setTextColor(Color.parseColor("#9E9E9E"));
         lic.setTextSize(12);
         root.addView(lic);
+
+        section(root, getString(R.string.section_backup), d);
+        TextView backupInfo = new TextView(this);
+        backupInfo.setText(R.string.backup_description);
+        backupInfo.setTextColor(Color.parseColor("#8899AA"));
+        backupInfo.setTextSize(12);
+        backupInfo.setPadding(0, 0, 0, 8 * d);
+        root.addView(backupInfo);
+        LinearLayout backupRow = new LinearLayout(this);
+        backupRow.setOrientation(LinearLayout.HORIZONTAL);
+        Button exportBtn = new Button(this);
+        exportBtn.setText(R.string.button_backup_export);
+        exportBtn.setOnClickListener(v -> {
+            Intent i = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+            i.addCategory(Intent.CATEGORY_OPENABLE);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_TITLE, "bbmeping-sicherung.txt");
+            startActivityForResult(i, REQ_BACKUP_EXPORT);
+        });
+        backupRow.addView(exportBtn, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        Button importBtn = new Button(this);
+        importBtn.setText(R.string.button_backup_import);
+        importBtn.setOnClickListener(v -> {
+            Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            i.addCategory(Intent.CATEGORY_OPENABLE);
+            i.setType("text/plain");
+            startActivityForResult(i, REQ_BACKUP_IMPORT);
+        });
+        backupRow.addView(importBtn, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        root.addView(backupRow);
 
         section(root, getString(R.string.about_changelog_title), d);
         Button toggle = new Button(this);
