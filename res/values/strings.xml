@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BBMe Ping</string>
+
+    <string name="main_description">Löst bei Prioritäts-Nachrichten von BBM Enterprise ein frei einstellbares Ton-/Wiederholungsmuster aus, auch wenn das Telefon lautlos ist – abhängig vom Absender und vom aktuellen Telefon-Modus.</string>
+
+    <string name="notif_perm_hint">Benachrichtigungszugriff nötig, damit BBM-Nachrichten überhaupt erkannt werden.</string>
+    <string name="notif_perm_button">Zugriff erlauben</string>
+
+    <string name="section_default_pattern">Standard-Muster</string>
+    <string name="button_edit_default">Standard-Muster bearbeiten</string>
+
+    <string name="section_contact_patterns">Personenbezogene Muster</string>
+    <string name="contacts_empty_hint">Noch keine – gilt für alle Absender das Standard-Muster.</string>
+    <string name="button_add_contact">+ Kontakt hinzufügen</string>
+    <string name="contacts_perm_hint">Ohne Kontakte-Zugriff gilt immer nur das Standard-Muster.</string>
+    <string name="button_edit">Bearbeiten</string>
+
+    <string name="label_tones_per_burst">Töne je Stoß</string>
+    <string name="label_burst_count">Wiederholungen (Stöße)</string>
+    <string name="label_tone_gap">Pause zwischen Tönen (ms)</string>
+    <string name="label_burst_gap">Pause zwischen Stößen (ms)</string>
+    <string name="label_volume_start">Lautstärke Start (%)</string>
+    <string name="checkbox_ramp">  Bis zu einem Maximum ansteigen lassen</string>
+    <string name="label_volume_max">Lautstärke Maximum (%)</string>
+
+    <string name="section_modes">Aktiv bei Telefon-Modus</string>
+    <string name="mode_normal">Normal</string>
+    <string name="mode_vibrate">Vibration</string>
+    <string name="mode_silent">Lautlos</string>
+
+    <string name="section_sound">Ton</string>
+    <string name="sound_auto_desc">Automatisch: der Ton, den BBM Enterprise selbst für Prioritäts-Nachrichten verwendet.</string>
+    <string name="sound_custom_prefix">Eigene Datei: %1$s</string>
+    <string name="button_pick_sound">Eigene Datei wählen…</string>
+    <string name="button_reset_sound">Zurücksetzen</string>
+
+    <string name="button_test">Testen</string>
+    <string name="button_save">Speichern</string>
+    <string name="button_cancel">Abbrechen</string>
+
+    <string name="pattern_tones_burst">%1$d× Ton</string>
+    <string name="pattern_repeated">%1$d× wiederholt</string>
+    <string name="pattern_pauses">%1$dms/%2$dms Pausen</string>
+    <string name="pattern_volume_ramp">Lautstärke %1$d→%2$d%%</string>
+    <string name="pattern_volume_flat">Lautstärke %1$d%%</string>
+    <string name="pattern_active_at">bei %1$s</string>
+    <string name="pattern_never_active">nie aktiv</string>
+</resources>

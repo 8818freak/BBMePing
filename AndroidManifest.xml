@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.herbers.bbmeping"
+    android:versionCode="1"
+    android:versionName="0.1">
+
+    <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="34" />
+
+    <!-- Kontakte lesen - optional, nur fuer personenbezogene Regeln (siehe
+         Rules.matchContact). Ohne diese Berechtigung funktioniert die
+         Standard-Regel trotzdem. -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- Um im lautlosen Modus trotzdem einen Ton abzuspielen, wird er
+         bewusst auf den Wecker-Stream (STREAM_ALARM/USAGE_ALARM) gelegt,
+         der von der Laut-Taste "lautlos" nicht stummgeschaltet wird - das
+         ist die dokumentierte, oeffentliche Android-Mechanik, ueber die auch
+         Wecker-Apps laeuten, keine Umgehung von Systemschutz. Erfordert
+         keine besondere Berechtigung.
+         Do-Not-Disturb-Zustand abfragen, um die eigene Regel-Engine daran
+         auszurichten (nicht um DND zu umgehen). -->
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher"
+        android:theme="@style/BbmePingTheme"
+        android:allowBackup="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Schneidet Benachrichtigungen von com.bbm.enterprise mit, um auf
+             der Prioritaets-Kategorie den konfigurierten Ton-/Vibrationsplan
+             auszuloesen (siehe NotificationCapture). -->
+        <service
+            android:name=".NotificationCapture"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

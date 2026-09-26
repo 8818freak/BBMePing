@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BBMe Ping</string>
+
+    <string name="main_description">Triggers a fully configurable tone/repeat pattern for priority messages from BBM Enterprise, even when the phone is silenced – depending on the sender and the phone\'s current mode.</string>
+
+    <string name="notif_perm_hint">Notification access is required so BBM messages can be detected at all.</string>
+    <string name="notif_perm_button">Grant access</string>
+
+    <string name="section_default_pattern">Default pattern</string>
+    <string name="button_edit_default">Edit default pattern</string>
+
+    <string name="section_contact_patterns">Per-contact patterns</string>
+    <string name="contacts_empty_hint">None yet – the default pattern applies to every sender.</string>
+    <string name="button_add_contact">+ Add contact</string>
+    <string name="contacts_perm_hint">Without contacts access, only the default pattern ever applies.</string>
+    <string name="button_edit">Edit</string>
+
+    <string name="label_tones_per_burst">Tones per burst</string>
+    <string name="label_burst_count">Repeats (bursts)</string>
+    <string name="label_tone_gap">Gap between tones (ms)</string>
+    <string name="label_burst_gap">Gap between bursts (ms)</string>
+    <string name="label_volume_start">Starting volume (%)</string>
+    <string name="checkbox_ramp">  Ramp up to a maximum</string>
+    <string name="label_volume_max">Maximum volume (%)</string>
+
+    <string name="section_modes">Active in phone mode</string>
+    <string name="mode_normal">Normal</string>
+    <string name="mode_vibrate">Vibrate</string>
+    <string name="mode_silent">Silent</string>
+
+    <string name="section_sound">Sound</string>
+    <string name="sound_auto_desc">Automatic: the sound BBM Enterprise itself uses for priority messages.</string>
+    <string name="sound_custom_prefix">Custom file: %1$s</string>
+    <string name="button_pick_sound">Choose custom file…</string>
+    <string name="button_reset_sound">Reset</string>
+
+    <string name="button_test">Test</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+
+    <string name="pattern_tones_burst">%1$d× tone</string>
+    <string name="pattern_repeated">repeated %1$d×</string>
+    <string name="pattern_pauses">%1$dms/%2$dms gaps</string>
+    <string name="pattern_volume_ramp">volume %1$d→%2$d%%</string>
+    <string name="pattern_volume_flat">volume %1$d%%</string>
+    <string name="pattern_active_at">active in %1$s</string>
+    <string name="pattern_never_active">never active</string>
+</resources>
