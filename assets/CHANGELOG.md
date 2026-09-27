@@ -2,6 +2,10 @@
 
 Alle nennenswerten Änderungen, neueste zuerst.
 
+## 0.7
+- Sichern/Wiederherstellen schlägt jetzt den Ordner "DaSis" als Startort
+  vor, falls vorhanden.
+
 ## 0.6
 - Neu: Einstellungen sichern/wiederherstellen ("Über BBMe Ping" → "Sicherung")
   - Standard-Muster und alle personenbezogenen Muster als Textdatei
