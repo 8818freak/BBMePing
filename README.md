@@ -79,6 +79,11 @@ cp build/base.apk build/unsigned.apk && (cd build && zip -qj unsigned.apk classe
   Adressbuch (Anzeigename der Benachrichtigung = Anzeigename des Kontakts) -
   kein Fuzzy-Matching, um nie die falsche Person zu treffen.
 
+## Dokumentation / Documentation
+
+- **Deutsch:** [Anleitung](docs/BBMePing-Anleitung.pdf) · [Werbung](docs/BBMePing-Werbung.pdf)
+- **English:** [User guide](docs/BBMePing-Guide.pdf) · [Flyer](docs/BBMePing-Flyer.pdf)
+
 ## Lizenz
 
 GNU General Public License v3.0 (oder später) — siehe `LICENSE`.
