@@ -2,9 +2,10 @@ package de.herbers.bbmeping;
 
 import android.app.Notification;
 import android.net.Uri;
-import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+
+import de.herbers.common.Notifications;
 
 /**
  * Beobachtet Benachrichtigungen von BBM Enterprise (com.bbm.enterprise) und
@@ -36,13 +37,12 @@ public class NotificationCapture extends NotificationListenerService {
         if (sbn == null || !BBM_PACKAGE.equals(sbn.getPackageName())) return;
         Notification n = sbn.getNotification();
         if (n == null || n.getChannelId() == null || !n.getChannelId().contains("priority")) return;
-        if ((n.flags & Notification.FLAG_GROUP_SUMMARY) != 0) return;
+        if (Notifications.isGroupSummary(n)) return;
 
         Mode mode = Mode.current(this);
 
-        Bundle extras = n.extras;
-        String senderName = extras == null ? null
-                : String.valueOf(extras.getCharSequence(Notification.EXTRA_TITLE, ""));
+        // Absender = Titel der Benachrichtigung (gemeinsame Extraktion).
+        String senderName = Notifications.titleAndText(n)[0];
         String lookupKey = ContactMatcher.lookupKeyForName(this, senderName);
 
         AlertPattern pattern = Rules.resolve(this, lookupKey, mode);

@@ -48,7 +48,12 @@ Kein Gradle — dieselbe rohe Android-SDK-Kommandozeilen-Toolchain wie
 [EdgeTab](https://github.com/8818freak/EdgeTab) und
 [Sucher](https://github.com/8818freak/Sucher). Ein eigener, unabhängiger
 Signierschlüssel wird empfohlen (nicht denselben wie die beiden anderen Apps
-verwenden, da inhaltlich und rechtlich unabhängig):
+verwenden, da inhaltlich und rechtlich unabhängig).
+
+Gemeinsame Klassen (Benachrichtigungs-Kern u. a.) liegen im Git-Submodul
+[`common/`](https://github.com/8818freak/herbers-android-common) — vor dem
+Bauen einmal `git submodule update --init` ausführen; der Build kompiliert
+`common/src` mit.
 
 ```sh
 SDK=/path/to/android/sdk
@@ -61,7 +66,8 @@ rm -rf build && mkdir -p build/gen build/obj
 "$BT/aapt2" link -o build/base.apk -I "$AJAR" --manifest AndroidManifest.xml \
   --java build/gen -R build/res.zip --auto-add-overlay \
   --min-sdk-version 29 --target-sdk-version 34
-javac --release 11 -d build/obj -classpath "$AJAR" $(find src build/gen -name '*.java')
+# common/src mitkompilieren (2>/dev/null: fehlendes Submodul stoert nicht)
+javac --release 11 -d build/obj -classpath "$AJAR" $(find src build/gen common/src -name '*.java' 2>/dev/null)
 "$BT/d8" --min-api 29 --lib "$AJAR" --output build/ $(find build/obj -name '*.class')
 cp build/base.apk build/unsigned.apk && (cd build && zip -qj unsigned.apk classes.dex)
 "$BT/zipalign" -f -p 4 build/unsigned.apk build/aligned.apk

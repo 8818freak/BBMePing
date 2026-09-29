@@ -2,6 +2,13 @@
 
 Alle nennenswerten Änderungen, neueste zuerst.
 
+## 0.8
+- Intern: Das Auslesen von Titel/Absender und der Gruppen-Filter der
+  Benachrichtigung kommen jetzt aus dem gemeinsamen Kern der Bibliothek
+  herbers-android-common (de.herbers.common.Notifications) statt aus eigenem
+  Code – dieselbe, gepflegte Logik wie in EdgeTab, Sucher und ActiveFrames.
+  Keine sichtbare Änderung.
+
 ## 0.7
 - Sichern/Wiederherstellen schlägt jetzt den Ordner "DaSis" als Startort
   vor, falls vorhanden.
