@@ -415,6 +415,31 @@ public class MainActivity extends Activity {
         backupRow.addView(importBtn, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         root.addView(backupRow);
 
+        // Diagnose-Protokoll (gemeinsame Bibliothek) - nur zeigen, wenn etwas
+        // drinsteht (also nach einem Absturz). So sieht man Fehler ohne Kabel.
+        String diag = de.herbers.common.DiagLog.read(this);
+        if (diag != null && !diag.isEmpty()) {
+            section(root, "Diagnose-Protokoll", d);
+            TextView diagInfo = new TextView(this);
+            diagInfo.setText("Zuletzt aufgezeichnete Fehler/Abstürze – hilft bei der Fehlersuche ohne Kabel.");
+            diagInfo.setTextColor(Color.parseColor("#8899AA"));
+            diagInfo.setTextSize(12);
+            diagInfo.setPadding(0, 0, 0, 8 * d);
+            root.addView(diagInfo);
+            TextView diagLog = new TextView(this);
+            diagLog.setText(diag);
+            diagLog.setTextColor(Color.parseColor("#CCCCCC"));
+            diagLog.setTextSize(11);
+            diagLog.setTypeface(android.graphics.Typeface.MONOSPACE);
+            diagLog.setTextIsSelectable(true);
+            diagLog.setPadding(0, 0, 0, 8 * d);
+            root.addView(diagLog);
+            Button diagClear = new Button(this);
+            diagClear.setText("Diagnose-Protokoll löschen");
+            diagClear.setOnClickListener(v -> { de.herbers.common.DiagLog.clear(this); rebuild(); });
+            root.addView(diagClear);
+        }
+
         section(root, getString(R.string.about_changelog_title), d);
         Button toggle = new Button(this);
         toggle.setText(changelogOpen ? R.string.about_changelog_hide : R.string.about_changelog_show);
