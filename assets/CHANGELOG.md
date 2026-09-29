@@ -2,6 +2,10 @@
 
 Alle nennenswerten Änderungen, neueste zuerst.
 
+## 0.12
+- Behoben: Häkchen-Kästchen waren auf dunklem Grund kaum sichtbar (schwarzer
+  Rahmen); jetzt mit sichtbarem blauem Rahmen.
+
 ## 0.11
 - Neu: Erinnerung, wenn eine einmal erteilte Berechtigung fehlt
   (Benachrichtigungszugriff, Kontakte) – z. B. nach einem System-Update. Die

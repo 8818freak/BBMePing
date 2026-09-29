@@ -510,6 +510,7 @@ public class MainActivity extends Activity {
         diagInfo.setPadding(0, 0, 0, 8 * d);
         root.addView(diagInfo);
         CheckBox showLog = new CheckBox(this);
+        showLog.setButtonTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#2E9BE6")));
         showLog.setText("  Protokoll anzeigen");
         showLog.setTextColor(Color.WHITE);
         showLog.setChecked(de.herbers.common.DiagLog.isDisplayEnabled(this));
@@ -647,6 +648,7 @@ public class MainActivity extends Activity {
                 v -> editBuffer.volumeStartPct = v, d));
 
         CheckBox ramp = new CheckBox(this);
+        ramp.setButtonTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#2E9BE6")));
         ramp.setText(R.string.checkbox_ramp);
         ramp.setTextColor(Color.WHITE);
         ramp.setChecked(editBuffer.rampEnabled);
@@ -660,6 +662,7 @@ public class MainActivity extends Activity {
         section(root, getString(R.string.section_modes), d);
         for (Mode m : Mode.values()) {
             CheckBox cb = new CheckBox(this);
+            cb.setButtonTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#2E9BE6")));
             cb.setText("  " + m.label(this));
             cb.setTextColor(Color.WHITE);
             cb.setChecked(editBuffer.modes.contains(m));
