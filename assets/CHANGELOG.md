@@ -2,6 +2,12 @@
 
 Alle nennenswerten Änderungen, neueste zuerst.
 
+## 0.10
+- Verbessert: Das Diagnose-Protokoll steht jetzt fest ganz unten in den
+  Einstellungen, zeigt die neuesten Einträge zuerst, und die Schaltflächen
+  (Anzeigen-Schalter, „löschen“) stehen darüber. Neuer Schalter „Protokoll
+  anzeigen“ blendet es bei Bedarf aus. (Einheitlich in allen Apps.)
+
 ## 0.7
 - Sichern/Wiederherstellen schlägt jetzt den Ordner "DaSis" als Startort
   vor, falls vorhanden.
