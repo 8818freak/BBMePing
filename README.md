@@ -42,6 +42,12 @@ Wecker-Lautstärke-Stream (`AudioAttributes.USAGE_ALARM`) — dieselbe,
 Telefon noch klingeln. Keine Umgehung von Systemschutz, keine besonderen
 Berechtigungen dafür nötig.
 
+Ein aufklappbarer **Berechtigungen**-Abschnitt in den Einstellungen zeigt je
+Berechtigung (Benachrichtigungszugriff, Kontakte) Status und wofür sie
+gebraucht wird und führt in die passende Systemeinstellung. Fehlt eine einmal
+erteilte Berechtigung wieder (z. B. nach einem System-Update), erinnert die App
+per Benachrichtigung mit der Möglichkeit, sie neu zu erteilen oder zu ignorieren.
+
 ## Bauen
 
 Kein Gradle — dieselbe rohe Android-SDK-Kommandozeilen-Toolchain wie
