@@ -2,6 +2,14 @@
 
 Alle nennenswerten Änderungen, neueste zuerst.
 
+## 0.11
+- Neu: Erinnerung, wenn eine einmal erteilte Berechtigung fehlt
+  (Benachrichtigungszugriff, Kontakte) – z. B. nach einem System-Update. Die
+  Meldung führt direkt zum Erteilen und lässt sich „Ignorieren“.
+- Neu/aufgeräumt: Aufklappbarer Abschnitt „Berechtigungen“ (Dreieck ▸/▾) zeigt
+  je Berechtigung Status und wofür sie gebraucht wird; ein Tipp führt in die
+  passende Systemeinstellung.
+
 ## 0.10
 - Verbessert: Das Diagnose-Protokoll steht jetzt fest ganz unten in den
   Einstellungen, zeigt die neuesten Einträge zuerst, und die Schaltflächen

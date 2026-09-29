@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -55,6 +56,7 @@ public class MainActivity extends Activity {
     /** Nur fuer einen neu hinzugefuegten Kontakt, bis er gespeichert wird. */
     private String pendingNewContactName;
     private boolean showingAbout;
+    private Boolean permsOpen = null; // null = Auto (offen, wenn etwas fehlt)
     private boolean changelogOpen;
 
     @Override
@@ -75,6 +77,15 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         rebuild();
+        // Ab Android 13 braucht das Posten von Benachrichtigungen (fuer die
+        // Berechtigungs-Erinnerung) eine Laufzeit-Berechtigung - einmal anfragen.
+        if (android.os.Build.VERSION.SDK_INT >= 33
+                && checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                        != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            try { requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 909); }
+            catch (Throwable ignored) {}
+        }
+        Perms.checkReminders(this);
     }
 
     private int dp(int v) { return Math.round(v * getResources().getDisplayMetrics().density); }
@@ -226,7 +237,7 @@ public class MainActivity extends Activity {
         desc.setPadding(0, 0, 0, 16 * d);
         root.addView(desc);
 
-        if (!isListenerEnabled()) root.addView(notifPermissionHint(d));
+        permsSection(d);
 
         if (showingAbout) {
             buildAboutSection(d);
@@ -257,6 +268,57 @@ public class MainActivity extends Activity {
         }
         String flat = Settings.Secure.getString(getContentResolver(), "enabled_notification_listeners");
         return flat != null && flat.contains(getPackageName());
+    }
+
+    /** Aufklappbarer, erklaerter Berechtigungs-Abschnitt (Dreieck ▸/▾): alle
+     *  Berechtigungen mit Status + wofuer; ein Tipp fuehrt je Berechtigung in
+     *  die passende Systemeinstellung. Dieselbe Quelle wie die Erinnerung
+     *  (Perms.list) - keine doppelten Einstellungen. Auto-aufgeklappt, solange
+     *  etwas fehlt (der Benachrichtigungszugriff ist der Kern der App). */
+    private void permsSection(int d) {
+        java.util.List<de.herbers.common.PermReminder.Perm> perms = Perms.list(this);
+        boolean anyMissing = false;
+        for (de.herbers.common.PermReminder.Perm p : perms) if (!p.granted) anyMissing = true;
+        boolean open = (permsOpen != null) ? permsOpen : anyMissing;
+
+        TextView head = new TextView(this);
+        head.setText((open ? "▾ " : "▸ ") + "Berechtigungen");
+        head.setTextColor(Color.parseColor("#2E9BE6"));
+        head.setTextSize(15);
+        head.setPadding(0, 6 * d, 0, 8 * d);
+        final boolean cur = open;
+        head.setOnClickListener(v -> { permsOpen = !cur; rebuild(); });
+        root.addView(head);
+        if (!open) return;
+
+        for (de.herbers.common.PermReminder.Perm perm : perms) {
+            TextView name = new TextView(this);
+            name.setText((perm.granted ? "✓  " : "✗  ") + perm.label + (perm.granted ? "" : "  –  fehlt"));
+            name.setTextColor(perm.granted ? Color.parseColor("#5BD68A") : Color.parseColor("#E0533A"));
+            name.setTextSize(14);
+            name.setPadding(4 * d, 8 * d, 4 * d, 2 * d);
+            root.addView(name);
+            if (perm.explanation != null && !perm.explanation.isEmpty()) {
+                TextView why = new TextView(this);
+                why.setText(perm.explanation);
+                why.setTextColor(Color.parseColor("#8899AA"));
+                why.setTextSize(12);
+                why.setPadding(4 * d, 0, 4 * d, 4 * d);
+                root.addView(why);
+            }
+            Button go = new Button(this);
+            go.setText(perm.granted ? "In den Einstellungen ändern" : "Jetzt erteilen");
+            go.setOnClickListener(v -> {
+                try {
+                    Intent i = perm.settings;
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                } catch (Throwable t) {
+                    Toast.makeText(this, "Einstellung nicht verfügbar", Toast.LENGTH_SHORT).show();
+                }
+            });
+            root.addView(go);
+        }
     }
 
     private View notifPermissionHint(int d) {
