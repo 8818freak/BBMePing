@@ -48,6 +48,19 @@ gebraucht wird und führt in die passende Systemeinstellung. Fehlt eine einmal
 erteilte Berechtigung wieder (z. B. nach einem System-Update), erinnert die App
 per Benachrichtigung mit der Möglichkeit, sie neu zu erteilen oder zu ignorieren.
 
+## Screenshots
+
+<table>
+<tr>
+<td><img src="screenshots/hauptbildschirm.png" width="220" alt="Hauptbildschirm"><br>Hauptbildschirm</td>
+<td><img src="screenshots/muster-editor.png" width="220" alt="Muster-Editor"><br>Muster-Editor</td>
+</tr>
+<tr>
+<td><img src="screenshots/berechtigungen.png" width="220" alt="Berechtigungen"><br>Berechtigungen</td>
+<td><img src="screenshots/ueber.png" width="220" alt="Über BBMe Ping"><br>Über / Sicherung</td>
+</tr>
+</table>
+
 ## Bauen
 
 Kein Gradle — dieselbe rohe Android-SDK-Kommandozeilen-Toolchain wie
