@@ -2,6 +2,24 @@
 
 Alle nennenswerten Änderungen, neueste zuerst.
 
+## 0.12
+- Behoben: Häkchen-Kästchen waren auf dunklem Grund kaum sichtbar (schwarzer
+  Rahmen); jetzt mit sichtbarem blauem Rahmen.
+
+## 0.11
+- Neu: Erinnerung, wenn eine einmal erteilte Berechtigung fehlt
+  (Benachrichtigungszugriff, Kontakte) – z. B. nach einem System-Update. Die
+  Meldung führt direkt zum Erteilen und lässt sich „Ignorieren“.
+- Neu/aufgeräumt: Aufklappbarer Abschnitt „Berechtigungen“ (Dreieck ▸/▾) zeigt
+  je Berechtigung Status und wofür sie gebraucht wird; ein Tipp führt in die
+  passende Systemeinstellung.
+
+## 0.10
+- Verbessert: Das Diagnose-Protokoll steht jetzt fest ganz unten in den
+  Einstellungen, zeigt die neuesten Einträge zuerst, und die Schaltflächen
+  (Anzeigen-Schalter, „löschen“) stehen darüber. Neuer Schalter „Protokoll
+  anzeigen“ blendet es bei Bedarf aus. (Einheitlich in allen Apps.)
+
 ## 0.9
 - Neu: Diagnose-Protokoll mit Absturz-Erfassung (aus der gemeinsamen Bibliothek
   herbers-android-common, de.herbers.common.DiagLog / Diagnostics) – unerwartete

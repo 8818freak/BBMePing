@@ -20,6 +20,20 @@ Alle nennenswerten Änderungen, neueste zuerst.
   (Anzeigen-Schalter, „löschen“) stehen darüber. Neuer Schalter „Protokoll
   anzeigen“ blendet es bei Bedarf aus. (Einheitlich in allen Apps.)
 
+## 0.9
+- Neu: Diagnose-Protokoll mit Absturz-Erfassung (aus der gemeinsamen Bibliothek
+  herbers-android-common, de.herbers.common.DiagLog / Diagnostics) – unerwartete
+  Fehler werden mit vollem Stack festgehalten und lassen sich in der „Über"-
+  Ansicht unter „Diagnose-Protokoll" einsehen/löschen, ohne Kabel. Dieselbe
+  Diagnose wie in EdgeTab, Sucher und ActiveFrames.
+
+## 0.8
+- Intern: Das Auslesen von Titel/Absender und der Gruppen-Filter der
+  Benachrichtigung kommen jetzt aus dem gemeinsamen Kern der Bibliothek
+  herbers-android-common (de.herbers.common.Notifications) statt aus eigenem
+  Code – dieselbe, gepflegte Logik wie in EdgeTab, Sucher und ActiveFrames.
+  Keine sichtbare Änderung.
+
 ## 0.7
 - Sichern/Wiederherstellen schlägt jetzt den Ordner "DaSis" als Startort
   vor, falls vorhanden.
