@@ -78,4 +78,10 @@
     <string name="backup_export_failed">Backup failed.</string>
     <string name="backup_import_ok">Restored.</string>
     <string name="backup_import_failed">File not readable, or not a valid BBMe Ping backup.</string>
+    <string name="perm_reminder_channel">"Permission notices"</string>
+    <string name="perm_reminder_channel_desc">"A notice when a once-granted permission is missing."</string>
+    <string name="perm_reminder_title">"%1$s: permission missing"</string>
+    <string name="perm_reminder_text">"%1$s is no longer granted – tap to grant."</string>
+    <string name="perm_reminder_bigtext">"%1$s was set up but is no longer granted (e.g. after a system update). Tap to grant it again – or “Ignore” if that is intended."</string>
+    <string name="perm_reminder_ignore">"Ignore"</string>
 </resources>

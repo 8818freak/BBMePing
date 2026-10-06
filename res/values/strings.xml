@@ -78,4 +78,10 @@
     <string name="backup_export_failed">Sicherung fehlgeschlagen.</string>
     <string name="backup_import_ok">Wiederhergestellt.</string>
     <string name="backup_import_failed">Datei nicht lesbar oder kein gültiges BBMe-Ping-Sicherungsformat.</string>
+    <string name="perm_reminder_channel">"Berechtigungs-Hinweise"</string>
+    <string name="perm_reminder_channel_desc">"Hinweis, wenn eine einmal erteilte Berechtigung fehlt."</string>
+    <string name="perm_reminder_title">"%1$s: Berechtigung fehlt"</string>
+    <string name="perm_reminder_text">"%1$s ist nicht mehr erteilt – tippen zum Erteilen."</string>
+    <string name="perm_reminder_bigtext">"%1$s war eingerichtet, ist aber nicht mehr erteilt (z. B. durch ein System-Update). Tippen, um sie wieder zu erteilen – oder „Ignorieren“, falls das gewollt ist."</string>
+    <string name="perm_reminder_ignore">"Ignorieren"</string>
 </resources>

@@ -2,6 +2,10 @@
 
 Alle nennenswerten Änderungen, neueste zuerst.
 
+## 0.12.1
+- Verbessert: Die Benachrichtigung bei einer fehlenden Berechtigung ist jetzt
+  zweisprachig (Deutsch/Englisch, folgt der Systemsprache).
+
 ## 0.12
 - Behoben: Häkchen-Kästchen waren auf dunklem Grund kaum sichtbar (schwarzer
   Rahmen); jetzt mit sichtbarem blauem Rahmen.
